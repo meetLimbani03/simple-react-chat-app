@@ -4,7 +4,7 @@ This document provides essential context for the "Daily Log" project, a simple R
 
 ## Project Overview
 
-The "Daily Log" is a web-based chat application designed for two users, "Alex" and "Ben", to maintain a shared daily log. It's built with React, TypeScript, and Vite. The application leverages Firebase Realtime Database to store and synchronize messages, user-specific tasks, and theme settings in real-time.
+The "Daily Log" is a web-based chat application designed for two users, "Alex" and "Ben", to maintain a shared daily log. It's built with React, TypeScript, and Vite. The application leverages Supabase for real-time database operations and Netlify Functions for serverless API calls.
 
 A key feature is its integration with the Google Gemini API, which provides:
 1.  **Audio Transcription:** Users can record voice notes, which are transcribed into text.
@@ -22,9 +22,11 @@ The project is configured to run with Node.js and npm.
     ```
 
 2.  **Set Up Environment Variables:**
-    Create a `.env.local` file in the project root and add your Gemini API key:
+    Create a `.env.local` file in the project root and add your API keys:
     ```
-    GEMINI_API_KEY=your_api_key_here
+    GEMINI_API_KEY=your_gemini_api_key_here
+    SUPABASE_URL=your_supabase_url_here
+    SUPABASE_ANON_KEY=your_supabase_anon_key_here
     ```
 
 3.  **Run the Development Server:**
@@ -50,22 +52,24 @@ The project is configured to run with Node.js and npm.
 *   **Frameworks & Libraries:**
     *   **UI:** React 19 with TypeScript
     *   **Build Tool:** Vite
-    *   **Database:** Firebase Realtime Database
+    *   **Database:** Supabase
+    *   **Serverless Functions:** Netlify Functions
     *   **AI:** `@google/genai` for Gemini API integration
 
 *   **Project Structure:**
     *   `src/`: This project does not use a `src` directory. Main files like `App.tsx` and `index.tsx` are in the root.
     *   `components/`: Contains reusable React components.
-    *   `services/`: Houses modules for external services (Firebase, Gemini).
+    *   `services/`: Houses modules for external services (Supabase, API, Gemini).
     *   `types.ts`: Defines shared TypeScript types and interfaces.
     *   `themes.ts`: Contains the theming configuration for the UI.
 
 *   **Coding Style:**
     *   The codebase uses functional components with React Hooks (`useState`, `useEffect`).
     *   Asynchronous operations are handled with `async/await`.
-    *   Firebase listeners (`onValue`) are used for real-time data synchronization.
+    *   Supabase real-time subscriptions are used for data synchronization.
 
 *   **Configuration:**
-    *   **Vite:** `vite.config.ts` is configured to proxy the `GEMINI_API_KEY` to the frontend.
+    *   **Vite:** `vite.config.ts` is configured to proxy environment variables to the frontend.
     *   **TypeScript:** `tsconfig.json` is set up for a modern React project.
-    *   **Firebase:** The configuration in `services/firebase.ts` contains placeholder credentials and should be updated for a production environment.
+    *   **Netlify:** `netlify.toml` configures the build and functions deployment.
+    *   **Supabase:** Environment variables for Supabase URL and anonymous key are required.
